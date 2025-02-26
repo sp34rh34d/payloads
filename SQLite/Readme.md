@@ -33,12 +33,14 @@ ORDER BY is essential in SQL injection to determine the number of columns in a v
 select id,name,role from users
 
 #Identify number of columns
-select id,name,role from users order by 3 -- the database engine will run it correctly, because the number of columns in the original query is 3 id, name and role
+/* The database engine will run it correctly, because the number of columns in the original query is 3 id, name and role */
+select id,name,role from users order by 3
 
-select id,name,role from users order by 4 -- the database engine will return an error, because there is not a column #4, this tell us that the original query is returning only 3 columns
+/* The database engine will return an error, because there is not a column #4, this tell us that the original query is returning only 3 columns */
+select id,name,role from users order by 4
 ```
 
-* ### Extracts an specific row
+* ### Extracts a specific row
 For Blind SQL injection we have to ensures that only the first or a specific row of a query result is returned, making it useful for blind SQLi when extracting data character by character.
 * ```LIMIT 1,1```
 * ```LIMIT 1 OFFSET 1```
