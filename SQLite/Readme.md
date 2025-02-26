@@ -41,9 +41,14 @@ select id,name,role from users order by 4 -- the database engine will return an 
 * ### Extracts an specific row
 For Blind SQL injection we have to ensures that only the first or a specific row of a query result is returned, making it useful for blind SQLi when extracting data character by character.
 * ```LIMIT 1,1```
+* ```LIMIT 1 OFFSET 1```
 ```
 #example
+select username from users LIMIT 0,1; -- Returns the first user
 select username from users LIMIT 1,1; -- Returns the second user
+
+select username from users order by 1 LIMIT 1 OFFSET 0 -- Returns the first user
+select username from users order by 1 LIMIT 1 OFFSET 1 -- Returns the second user
 ```
 
 * #### Length
